@@ -11,8 +11,19 @@ class TestServer:
 
         self.angle_data = {}
         self.server = SimpleXMLRPCServer(("localhost", 8000))
-        self.server.register_function(self.get_angle)
-        self.server.register_function(self.set_angle)
+        # self.server.register_function(self.get_angle)
+        # self.server.register_function(self.set_angle)
+
+        # Register all functions
+        for func in [
+            self.get_angle,
+            self.set_angle,
+            self.get_posture,
+            # self.execute_keyframes,
+            # self.get_transform,
+            # self.set_transform,
+        ]:
+            self.server.register_function(func)
 
     def get_angle(self, joint_name):
         print(f"Getting {joint_name=}")
@@ -24,13 +35,26 @@ class TestServer:
         print(f"Setting {joint_name=} to {set_angle=}")
         return True
 
-    def run(self):
-        print("Test server running...")
-        self.server.serve_forever()  # honestly not sure why/what this does.
-
     def get_posture(self):
         print("Getting posture")
         return list(self.angle_data.items())
+
+    def execute_keyframes(self, keyframes):
+        print(f"Executing {len(keyframes)} keyframes")
+        return True
+
+    def get_transform(self, name):
+        print(f"Getting transform for {name}")
+        return self.transforms.get(name, [0.0, 0.0, 0.0])
+
+    def set_transform(self, effector_name, transform):
+        print(f"Setting transform for {effector_name}")
+        self.transforms[effector_name] = transform
+        return True
+
+    def run(self):
+        print("Test server running...")
+        self.server.serve_forever()  # honestly not sure why/what this does.
 
 
 if __name__ == "__main__":
