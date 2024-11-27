@@ -26,8 +26,17 @@ class TestServer:
 
     def run(self):
         print("Test server running...")
-        self.server.serve_forever()
+        self.server.serve_forever()  # honestly not sure why/what this does.
+
+    def get_posture(self):
+        print("Getting posture")
+        return list(self.angle_data.items())
 
 
 if __name__ == "__main__":
+    # TestServer().get_angle("HeadYaw")
+    # print("Test server get angle HeadYaw done")
+    # TestServer().set_angle("HeadYaw", 0.5)
+    # print("Test server set angle HeadYaw done")
     TestServer().run()
+    print("Test server run done")
