@@ -8,20 +8,19 @@ ANGLE = 0.5
 class TestServer:
     def __init__(self):
         print("Test server init")
-
+        self.transforms = {}
         self.angle_data = {}
         self.server = SimpleXMLRPCServer(("localhost", 8000))
         # self.server.register_function(self.get_angle)
         # self.server.register_function(self.set_angle)
-
         # Register all functions
         for func in [
             self.get_angle,
             self.set_angle,
             self.get_posture,
-            # self.execute_keyframes,
-            # self.get_transform,
-            # self.set_transform,
+            self.execute_keyframes,
+            self.get_transform,
+            self.set_transform,
         ]:
             self.server.register_function(func)
 
@@ -54,7 +53,7 @@ class TestServer:
 
     def run(self):
         print("Test server running...")
-        self.server.serve_forever()  # honestly not sure why/what this does.
+        self.server.serve_forever()  # This may block the main thread?
 
 
 if __name__ == "__main__":
@@ -62,5 +61,6 @@ if __name__ == "__main__":
     # print("Test server get angle HeadYaw done")
     # TestServer().set_angle("HeadYaw", 0.5)
     # print("Test server set angle HeadYaw done")
+
     TestServer().run()
     print("Test server run done")
