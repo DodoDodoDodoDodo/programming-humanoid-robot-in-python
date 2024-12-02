@@ -24,15 +24,10 @@ class MyAgent(SparkAgent):
     def think(self, perception):
         angle = 0
         temperature = 0
-        # YOUR CODE HERE
         # get angle and temperature to current data of joint HeadYaw
         try:
-            angle = perception.joint["HeadYaw"] if "HeadYaw" in perception.joint else 0
-            temperature = (
-                perception.joint_temperature["HeadYaw"]
-                if "HeadYaw" in perception.joint_temperature
-                else 0
-            )
+            angle = perception.joint['HeadYaw'] if 'HeadYaw' in perception.joint else 0
+            temperature = perception.joint_temperature['HeadYaw'] if 'HeadYaw' in perception.joint_temperature else 0
         except:
             angle, temperature = 0, 0
         # get angle and temperature to current data of joint HeadYaw

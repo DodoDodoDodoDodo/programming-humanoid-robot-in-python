@@ -27,18 +27,18 @@ class InverseKinematicsAgent(ForwardKinematicsAgent):
 
         pos = transform[:3, 3]
         is_left = effector_name == "LLeg"
-        cerify_is_left = effector_name == "RLeg"
-        if is_left and cerify_is_left:
+        certify_is_left = effector_name == "RLeg"  # fixed typo
+        if is_left and certify_is_left:
             print("effector_name is both")
-        elif is_left and not cerify_is_left:
+        elif is_left and not certify_is_left:
             print("effector_name is left")
-        elif not is_left and cerify_is_left:
+        elif not is_left and certify_is_left:
             print("effector_name is right")
-        elif not is_left and not cerify_is_left:
+        elif not is_left and not certify_is_left:
             print("effector_name  is neither")
         else:
             print(
-                f"effector_name is cursed, {effector_name=}, {cerify_is_left=}, {is_left=}"
+                f"effector_name is cursed, {effector_name=}, {certify_is_left=}, {is_left=}"
             )
         sign = 1 if is_left else -1
 
