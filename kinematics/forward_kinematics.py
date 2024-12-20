@@ -47,11 +47,36 @@ class ForwardKinematicsAgent(PostureRecognitionAgent):
         self.chains = {
             "Head": ["HeadYaw", "HeadPitch"],
             # YOUR CODE HERE
-            "LArm": ["LShoulderPitch", "LShoulderRoll", "LElbowYaw", "LElbowRoll", "LWristYaw"],
-            "RArm": ["RShoulderPitch", "RShoulderRoll", "RElbowYaw", "RElbowRoll", "RWristYaw"],
-            "LLeg": ["LHipYawPitch", "LHipRoll", "LHipPitch", "LKneePitch", "LAnklePitch", "LAnkleRoll"],
-            "RLeg": ["RHipYawPitch", "RHipRoll", "RHipPitch", "RKneePitch", "RAnklePitch", "RAnkleRoll"]
-}
+            "LArm": [
+                "LShoulderPitch",
+                "LShoulderRoll",
+                "LElbowYaw",
+                "LElbowRoll",
+                "LWristYaw",
+            ],
+            "RArm": [
+                "RShoulderPitch",
+                "RShoulderRoll",
+                "RElbowYaw",
+                "RElbowRoll",
+                "RWristYaw",
+            ],
+            "LLeg": [
+                "LHipYawPitch",
+                "LHipRoll",
+                "LHipPitch",
+                "LKneePitch",
+                "LAnklePitch",
+                "LAnkleRoll",
+            ],
+            "RLeg": [
+                "RHipYawPitch",
+                "RHipRoll",
+                "RHipPitch",
+                "RKneePitch",
+                "RAnklePitch",
+                "RAnkleRoll",
+            ],
         }
 
     def think(self, perception):
@@ -68,6 +93,9 @@ class ForwardKinematicsAgent(PostureRecognitionAgent):
         """
         T = identity(4)
         # YOUR CODE HERE
+
+        from math import sin, cos
+
         if "Hip" in joint_name:
             T[0:3, 3] = matrix([0, 0.050 if "L" in joint_name else -0.050, -0.085]).T
         elif "Shoulder" in joint_name:
